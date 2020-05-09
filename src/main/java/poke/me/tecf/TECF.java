@@ -37,7 +37,6 @@ public class TECF
                     ItemEntity egg = new ItemEntity(event.getWorld().getWorld(), event.getX(), event.getY() + 1, event.getZ(),
                             new ItemStack(Items.EGG, TECFConfig.SERVER.eggSpawnAmount.get()));
                     event.getWorld().addEntity(egg);
-                    System.out.println("CHICKEN REPLACED! " + event.getX() + " " + event.getY() + " " + event.getZ());
                     event.setResult(Event.Result.DENY);
                 }
             }
