@@ -20,10 +20,10 @@ Yes, the Egg came first.
    mandatory=true
    versionRange="[34,)"
    ordering="NONE"
-   side="CLIENT"
+   side="SERVER"
 [[dependencies.tecf]]
    modId="minecraft"
    mandatory=true
    versionRange="[1.16,]"
    ordering="NONE"
-   side="CLIENT"
+   side="SERVER"
