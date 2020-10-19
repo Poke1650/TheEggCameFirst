@@ -4,8 +4,10 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.passive.EntityChicken;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.config.Config;
 import net.minecraftforge.common.config.Configuration;
+import net.minecraftforge.event.entity.item.ItemExpireEvent;
 import net.minecraftforge.event.entity.living.LivingSpawnEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -57,10 +59,30 @@ public class TECF
             {
                 if (event.getEntity() instanceof EntityChicken)
                 {
-                    EntityItem egg = new EntityItem(event.getWorld(),event.getX(),event.getY() + 1,event.getZ(),new ItemStack(Items.EGG, TECFConfig.eggSpawnAmmount,0));
+                    EntityItem egg = new EntityItem(event.getWorld(), event.getX(), event.getY() + 1, event.getZ(), new ItemStack(Items.EGG, TECFConfig.eggSpawnAmmount, 0));
                     event.getWorld().spawnEntity(egg);
                     event.setResult(Event.Result.DENY);
                 }
+            }
+        }
+    }
+    
+    @SubscribeEvent
+    public static void onItemExpire(ItemExpireEvent event)
+    {
+        if (event.getEntityItem() != null && event.getEntityItem().getItem().getItem().equals(Items.EGG) && TECFConfig.eggsLayChickens)
+        {
+            EntityChicken chiken = new EntityChicken(event.getEntityItem().world);
+            NBTTagCompound chikenNBT = new NBTTagCompound();
+            chikenNBT.setBoolean("IsChickenJockey", false);
+            chikenNBT.setInteger("EggLayTime", 12096000);
+            chiken.readEntityFromNBT(chikenNBT);
+            
+            event.getEntityItem().world.spawnEntity(chikenNBT);
+            
+            if (event.getEntityItem().world.rand.nextFloat() < TECFConfig.persistentEggChance) {
+                event.setExtraLife(event.getEntityItem().world.rand.nextInt(6000) + TECFConfig.chickenLayingDelay);
+                event.setCanceled(true);
             }
         }
     }
