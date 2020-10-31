@@ -1,16 +1,15 @@
 modLoader="javafml"
 loaderVersion="[34,)"
-#updateJSONURL=""
 issueTrackerURL="https://github.com/antoinegag/TheEggCameFirst/issues"
-displayURL="https://www.curseforge.com/minecraft/mc-mods/the-egg-came-first"
-#logoFile=""
-credits="bafomdad for the idea"
-authors="Poke1650"
 license="MIT"
+
 [[mods]]
 modId="tecf"
 version="${file.jarVersion}"
 displayName="The Egg Came First"
+credits="bafomdad for the idea"
+authors="Poke1650"
+displayURL="https://www.curseforge.com/minecraft/mc-mods/the-egg-came-first"
 description='''
 Yes, the Egg came first.
 '''
